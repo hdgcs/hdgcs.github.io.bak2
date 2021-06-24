@@ -10,6 +10,7 @@
         <div class="d-flex flex-column flex-md-row">
           <div class="flex">
             <v-list two-line>
+              <v-skeleton-loader v-if="!posts.length" max-width="800" type="list-item-avatar-two-line@15" />
               <v-list-item v-for="post in posts" :key="post.link" :href="post.link">
                 <v-list-item-avatar>
                   <v-icon class="grey lighten-1" dark>
@@ -48,7 +49,7 @@ export default {
     }
   },
   mounted: function() {
-    fetch(config.wechatRssUrl, { "method": "GET" })
+    fetch(config.wechatRssUrl, { method: "GET" })
       .then(response => response.text())
       .then(data => {
         const json = parser.parse(data)
