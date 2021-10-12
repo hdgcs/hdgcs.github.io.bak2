@@ -38,9 +38,6 @@
 </template>
 
 <script>
-import parser from 'fast-xml-parser'
-import config from './config'
-
 export default {
   name: 'App',
   data: function() {
@@ -49,11 +46,10 @@ export default {
     }
   },
   mounted: function() {
-    fetch(config.wechatRssUrl, { method: "GET" })
-      .then(response => response.text())
+    fetch("/data.json", { method: "GET" })
+      .then(response => response.json())
       .then(data => {
-        const json = parser.parse(data)
-        this.posts = json.rss.channel.item
+        this.posts = data
       })
   },
   filters: {
